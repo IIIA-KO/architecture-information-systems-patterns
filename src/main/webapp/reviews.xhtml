@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/template/template.xhtml">
+    <ui:define name="title">Reviews</ui:define>
+
+    <ui:define name="content">
+        <p:card>
+            <f:facet name="title">Movie Reviews</f:facet>
+
+            <h:form>
+                <p:growl id="growl" showDetail="true" />
+
+                <p:dataTable value="#{reviewBean.allReviews}" var="review"
+                             emptyMessage="No reviews submitted yet.">
+                    <p:column headerText="Movie ID" sortBy="#{review.movieId}">
+                        <h:outputText value="#{review.movieId}" />
+                    </p:column>
+                    <p:column headerText="Author" sortBy="#{review.author}">
+                        <h:outputText value="#{review.author}" />
+                    </p:column>
+                    <p:column headerText="Rating" sortBy="#{review.rating}">
+                        <h:outputText value="#{review.rating}" />
+                    </p:column>
+                    <p:column headerText="Comment">
+                        <h:outputText value="#{review.comment}" />
+                    </p:column>
+                    <p:column headerText="Status" sortBy="#{review.status}">
+                        <h:outputText value="#{review.status}"
+                                      style="font-weight: bold; color: #{review.status == 'APPROVED' ? 'green' : (review.status == 'REJECTED' ? 'red' : 'orange')};" />
+                    </p:column>
+                    <p:column headerText="Date" sortBy="#{review.createdAt}">
+                        <h:outputText value="#{review.createdAt}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:card>
+    </ui:define>
+</ui:composition>
+
+</html>

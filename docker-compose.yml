@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:17.6
+    environment:
+      POSTGRES_DB: moviesdb
+      POSTGRES_USER: movies
+      POSTGRES_PASSWORD: movies
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U movies -d moviesdb"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  wildfly:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://localhost:8080/movies/faces/movies.xhtml"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+
+  client:
+    build: ./client
+    depends_on:
+      wildfly:
+        condition: service_healthy
+
+volumes:
+  pgdata:

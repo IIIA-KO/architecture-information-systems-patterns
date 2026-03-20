@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/template/template.xhtml">
+    <ui:define name="title">Movie Details</ui:define>
+
+    <ui:define name="content">
+        <p:card>
+            <f:facet name="title">Movie Details</f:facet>
+
+            <h:panelGroup rendered="#{movieBean.selectedMovie != null}">
+                <p:panelGrid columns="2">
+                    <h:outputLabel value="Title:" />
+                    <h:outputText value="#{movieBean.selectedMovie.title}" />
+
+                    <h:outputLabel value="Genre:" />
+                    <h:outputText value="#{movieBean.selectedMovie.genre}" />
+
+                    <h:outputLabel value="Release Year:" />
+                    <h:outputText value="#{movieBean.selectedMovie.releaseYear}" />
+
+                    <h:outputLabel value="Director:" />
+                    <h:outputText value="#{movieBean.selectedMovie.director}" />
+
+                    <h:outputLabel value="Description:" />
+                    <h:outputText value="#{movieBean.selectedMovie.description}" />
+                </p:panelGrid>
+
+                <br/>
+                <h:form>
+                    <p:button value="Back to List" outcome="movies.xhtml" icon="pi pi-arrow-left" />
+                    <p:commandButton value="Edit" icon="pi pi-pencil"
+                                     action="#{movieBean.prepareEditMovie(movieBean.selectedMovie.id)}"
+                                     style="margin-left: 0.5rem;" />
+                    <p:commandButton value="Delete" icon="pi pi-trash" styleClass="ui-button-danger"
+                                     action="#{movieBean.deleteMovie(movieBean.selectedMovie.id)}"
+                                     style="margin-left: 0.5rem;">
+                        <p:confirm header="Confirm Delete"
+                                   message="Are you sure you want to delete '#{movieBean.selectedMovie.title}'?"
+                                   icon="pi pi-exclamation-triangle" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true">
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                         icon="pi pi-times" />
+                    </p:confirmDialog>
+                </h:form>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{movieBean.selectedMovie == null}">
+                <p>No movie selected.</p>
+                <p:button value="Back to List" outcome="movies.xhtml" icon="pi pi-arrow-left" />
+            </h:panelGroup>
+        </p:card>
+    </ui:define>
+</ui:composition>
+
+</html>

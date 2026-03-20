@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/template/template.xhtml">
+    <ui:define name="title">Movies Without Director</ui:define>
+
+    <ui:define name="content">
+        <p:card>
+            <f:facet name="title">Movies Without Director</f:facet>
+
+            <h:form>
+                <p:dataTable value="#{movieBean.moviesWithoutDirector}" var="movie"
+                             emptyMessage="All movies have a director assigned.">
+                    <p:column headerText="Title" sortBy="#{movie.title}">
+                        <h:outputText value="#{movie.title}" />
+                    </p:column>
+                    <p:column headerText="Genre" sortBy="#{movie.genre}">
+                        <h:outputText value="#{movie.genre}" />
+                    </p:column>
+                    <p:column headerText="Release Year" sortBy="#{movie.releaseYear}">
+                        <h:outputText value="#{movie.releaseYear}" />
+                    </p:column>
+                    <p:column headerText="Description">
+                        <h:outputText value="#{movie.description}" />
+                    </p:column>
+                    <p:column headerText="Actions" style="white-space: nowrap;">
+                        <p:commandButton value="Details" icon="pi pi-search"
+                                         action="#{movieBean.viewDetails(movie.id)}"
+                                         style="margin-right: 0.25rem;" />
+                        <p:commandButton value="Edit" icon="pi pi-pencil"
+                                         action="#{movieBean.prepareEditMovie(movie.id)}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:card>
+    </ui:define>
+</ui:composition>
+
+</html>

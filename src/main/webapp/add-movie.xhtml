@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Add a New Movie</title>
+    <h:outputStylesheet library="primefaces" name="primeicons/primeicons.css" />
+    <h:outputStylesheet library="primefaces" name="primefaces.css" />
+</h:head>
+<h:body>
+    <p:card style="margin: 2rem;">
+        <f:facet name="title">
+            Add a New Movie
+        </f:facet>
+        <h:form>
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate />
+            </p:messages>
+
+            <p:panelGrid columns="2" style="margin-bottom: 1rem;">
+                <h:outputLabel for="title">Title:</h:outputLabel>
+                <p:inputText id="title" value="#{movieBean.newMovie.title}" required="true" />
+
+                <h:outputLabel for="genre">Genre:</h:outputLabel>
+                <p:inputText id="genre" value="#{movieBean.newMovie.genre}" required="true" />
+
+                <h:outputLabel for="releaseYear">Release Year:</h:outputLabel>
+                <p:inputText id="releaseYear" value="#{movieBean.newMovie.releaseYear}" required="true">
+                    <f:validateLongRange minimum="1888" maximum="#{T(java.time.Year).now().getValue() + 5}" />
+                </p:inputText>
+
+                <h:outputLabel for="director">Director:</h:outputLabel>
+                <p:inputText id="director" value="#{movieBean.newMovie.director}" required="true" />
+
+                <h:outputLabel for="description">Description:</h:outputLabel>
+                <p:inputTextarea id="description" value="#{movieBean.newMovie.description}" rows="4" cols="50" />
+            </p:panelGrid>
+            <p:commandButton value="Save Movie" action="#{movieBean.saveMovie}" update="messages" />
+            <p:button value="Cancel" outcome="movies.xhtml" style="margin-left: .5rem" />
+        </h:form>
+    </p:card>
+</h:body>
+</html>

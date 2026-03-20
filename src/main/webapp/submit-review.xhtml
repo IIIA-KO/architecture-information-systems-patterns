@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="WEB-INF/template/template.xhtml">
+    <ui:define name="title">Submit Review</ui:define>
+
+    <ui:define name="content">
+        <p:card>
+            <f:facet name="title">Submit a Movie Review</f:facet>
+
+            <h:form id="reviewForm">
+                <p:messages id="globalMessages" showDetail="true" closable="true" />
+
+                <p:panelGrid columns="3" columnClasses="ui-grid-col-3, ui-grid-col-6, ui-grid-col-3" style="margin-top: 1rem;">
+                    <p:outputLabel for="movie" value="Movie:" />
+                    <p:selectOneMenu id="movie" value="#{reviewBean.movieId}" required="true"
+                                     requiredMessage="Please select a movie">
+                        <f:selectItem itemLabel="-- Select a Movie --" itemValue="#{null}" noSelectionOption="true" />
+                        <f:selectItems value="#{movieBean.allMovies}" var="m"
+                                       itemLabel="#{m.title}" itemValue="#{m.id}" />
+                    </p:selectOneMenu>
+                    <p:message for="movie" />
+
+                    <p:outputLabel for="author" value="Author:" />
+                    <p:inputText id="author" value="#{reviewBean.author}" required="true"
+                                 requiredMessage="Author name is required" />
+                    <p:message for="author" />
+
+                    <p:outputLabel for="rating" value="Rating (1-5):" />
+                    <p:spinner id="rating" value="#{reviewBean.rating}" min="1" max="5" stepFactor="1" />
+                    <p:message for="rating" />
+
+                    <p:outputLabel for="comment" value="Comment:" />
+                    <p:inputTextarea id="comment" value="#{reviewBean.comment}" rows="4" cols="40" />
+                    <p:message for="comment" />
+                </p:panelGrid>
+
+                <p:commandButton value="Submit Review" icon="pi pi-send"
+                                 action="#{reviewBean.submitReview()}"
+                                 process="@form" update="reviewForm"
+                                 style="margin-top: 1rem;" />
+            </h:form>
+        </p:card>
+    </ui:define>
+</ui:composition>
+
+</html>
