@@ -4,10 +4,10 @@ A comprehensive **Jakarta EE 10** web application demonstrating modern enterpris
 
 - **JSF (Jakarta Server Faces)** for web UI
 - **JAX-RS (RESTful Web Services)** for REST API endpoints
-- - **EJB (Enterprise JavaBeans)** for business logic
-- - **JPA/Hibernate** for ORM and database management
-- - **JMS (Java Message Service)** for asynchronous messaging
-- - **Docker** containerization with PostgreSQL
+- **EJB (Enterprise JavaBeans)** for business logic
+- **JPA/Hibernate** for ORM and database management
+- **JMS (Java Message Service)** for asynchronous messaging
+- **Docker** containerization with PostgreSQL
 
 ## Requirements
 
@@ -78,7 +78,7 @@ A comprehensive **Jakarta EE 10** web application demonstrating modern enterpris
 
 ## Author
 
-Student project for Jakarta EE 10 course at University of Maribor (FERI)
+Student project for Jakarta EE 10 course at University of Maribor (FERI) by Illia Kotvitskyi
 
 ## License
 
